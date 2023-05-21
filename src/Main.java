@@ -3,6 +3,7 @@ import model.SimpleGraph;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -20,6 +21,8 @@ public class Main {
                              3. Multigraph
                              4. PseudoGraph
                              5. Directed Multigraph
+                             6. Dijkstra
+                             7. Exit:C
                             """
             );
             //simple: aristas no dirigidas, aristass multiples: no, bucles: no
@@ -50,10 +53,16 @@ public class Main {
                     break;
 
                 case 6:
+                    dijkstra();
+                    break;
+
+                case 7:
                     System.exit(0);
                     break;
 
+
             }
+
 
 
         }
@@ -153,6 +162,39 @@ public class Main {
         directedMultiGraph.addEdge("A","A");
         directedMultiGraph.addEdge("A","A");
         directedMultiGraph.printGraph();
+
+    }
+
+
+    public static void dijkstra(){
+
+        Dijkstra<String> dijkstra = new Dijkstra<>();
+
+        // Agregar vértices
+        dijkstra.addVertex("A");
+        dijkstra.addVertex("B");
+        dijkstra.addVertex("C");
+        dijkstra.addVertex("D");
+        dijkstra.addVertex("E");
+
+        // Agregar aristas
+        dijkstra.addEdge("A", "B", 2);
+        dijkstra.addEdge("A", "C", 4);
+        dijkstra.addEdge("B", "C", 1);
+        dijkstra.addEdge("B", "D", 7);
+        dijkstra.addEdge("C", "D", 3);
+        dijkstra.addEdge("C", "E", 5);
+        dijkstra.addEdge("D", "E", 2);
+
+        // Ejecutar algoritmo de Dijkstra
+        Map<String, Integer> distances = dijkstra.dijkstra("A");
+
+        // Imprimir las distancias más cortas desde el vértice "A"
+        for (Map.Entry<String, Integer> entry : distances.entrySet()) {
+            String vertex = entry.getKey();
+            int distance = entry.getValue();
+            System.out.println("Distancia más corta desde A hasta " + vertex + ": " + distance);
+        }
 
     }
 
